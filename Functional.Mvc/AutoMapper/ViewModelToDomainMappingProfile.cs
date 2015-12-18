@@ -1,0 +1,20 @@
+﻿using AutoMapper;
+using Functional.Domain.Entities.Model;
+using Functional.Mvc.ViewModels;
+
+namespace Functional.Mvc.AutoMapper
+{
+    public class ViewModelToDomainMappingProfile : Profile
+    {
+        public override string ProfileName
+        {
+            get { return "ViewModelToDomainMappings"; }
+        }
+
+        protected override void Configure()
+        {
+            Mapper.CreateMap<ProjetoViewModel, Projeto>();
+        }
+
+    }
+}

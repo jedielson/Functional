@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Functional.Mvc.ViewModels.ProjetoViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Projetos</h2>
+
+<p>
+    @Ajax.ModalDialogActionLink("Novo", "Create", "Projeto", "Novo", null, null)
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @{
+                    var routeValues = new RouteValueDictionary();
+                    routeValues.Add("id", item.ProjetoId);
+                }
+                @Ajax.ModalDialogActionLink("Editar", "Edit", "Projeto", "Editar", routeValues, null)
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProjetoId }) |
+                @Html.ActionLink("Delete", "Delete", new{id = item.ProjetoId })                
+            </td>
+        </tr>
+            }
+
+</table>

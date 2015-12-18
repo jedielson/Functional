@@ -1,0 +1,44 @@
+﻿@model Functional.Mvc.ViewModels.ProjetoViewModel
+
+
+@using (Ajax.BeginModalDialogForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">                
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ProjetoId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Codigo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.DisplayFor(model => model.Codigo)
+                @Html.HiddenFor(model =>  model.Codigo)
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome)
+                @Html.ValidationMessageFor(model => model.Nome)
+            </div>
+        </div>
+
+        <div>
+            @Html.HiddenFor(m => m.DataDeCriacao)
+            @Html.HiddenFor(m => m.DataUltimaAlteracao)
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

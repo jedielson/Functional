@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{16C67AAD-A7FD-49B4-82BD-268613D7A13C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Functional.Domain</RootNamespace>
+    <AssemblyName>Functional.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="StyleCop, Version=4.7.1000.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
+      <HintPath>..\packages\StyleCop.4.7.49.0\lib\net35\StyleCop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StyleCop.CSharp, Version=4.7.1000.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
+      <HintPath>..\packages\StyleCop.4.7.49.0\lib\net35\StyleCop.CSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Model\CasoDeUso.cs" />
+    <Compile Include="Entities\Model\Fluxo.cs" />
+    <Compile Include="Entities\Model\FluxoAlternativo.cs" />
+    <Compile Include="Entities\Model\FluxoDeExcecao.cs" />
+    <Compile Include="Entities\Model\FluxoPrincipal.cs" />
+    <Compile Include="Entities\Model\Passo.cs" />
+    <Compile Include="Entities\Model\Projeto.cs" />
+    <Compile Include="Entities\Model\RegraDeNegocio.cs" />
+    <Compile Include="Entities\Model\Requisito.cs" />
+    <Compile Include="Entities\Specifications\ProjetoSpecs\CodigoDoProjetoDeveSerFormatadoSpec.cs" />
+    <Compile Include="Entities\Specifications\ProjetoSpecs\ProjetoDeveTerUmNomeSpec.cs" />
+    <Compile Include="Entities\Validations\ProjectIsValidValidation.cs" />
+    <Compile Include="Enumerations\Enumerations.cs" />
+    <Compile Include="Interfaces\Context\Common\IUnidadeDeTrabalho.cs" />
+    <Compile Include="Interfaces\Entities\IEntityBase.cs" />
+    <Compile Include="Interfaces\Repository\Common\IReadOnlyRepository.cs" />
+    <Compile Include="Interfaces\Repository\Common\IRepository.cs" />
+    <Compile Include="Interfaces\Repository\ICasoDeUsoRepository.cs" />
+    <Compile Include="Interfaces\Repository\IFluxoAlternativoRepository.cs" />
+    <Compile Include="Interfaces\Repository\IFluxoDeExcessaoRepository.cs" />
+    <Compile Include="Interfaces\Repository\IFluxoPrincipalRepository.cs" />
+    <Compile Include="Interfaces\Repository\IPassoRepository.cs" />
+    <Compile Include="Interfaces\Repository\IProjetoRepository.cs" />
+    <Compile Include="Interfaces\Repository\IRegraDeNegocioRepository.cs" />
+    <Compile Include="Interfaces\Repository\IRequisitoRepository.cs" />
+    <Compile Include="Interfaces\Repository\ReadOnly\IProjetoReadOnlyRepository.cs" />
+    <Compile Include="Interfaces\Service\Common\IReadOnlyService.cs" />
+    <Compile Include="Interfaces\Service\Common\IService.cs" />
+    <Compile Include="Entities\Validations\Common\ValidationMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidationMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\Service\IProjetoService.cs" />
+    <Compile Include="Services\Helpers\LinqExtentions.cs" />
+    <Compile Include="Interfaces\Specification\ISpecification.cs" />
+    <Compile Include="Interfaces\Validation\ISelfValidation.cs" />
+    <Compile Include="Interfaces\Validation\IValidation.cs" />
+    <Compile Include="Interfaces\Validation\IValidationRule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Common\ReadOnlyService.cs" />
+    <Compile Include="Services\Common\Service.cs" />
+    <Compile Include="Services\ProjetoService.cs" />
+    <Compile Include="Validation\Validation.cs" />
+    <Compile Include="Validation\ValidationError.cs" />
+    <Compile Include="Validation\ValidationResult.cs" />
+    <Compile Include="Validation\ValidationRule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\Common\" />
+    <Folder Include="Entities\EqualityCompare\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Entities\Validations\Common\ValidationMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
