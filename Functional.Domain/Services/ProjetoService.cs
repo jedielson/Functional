@@ -10,20 +10,8 @@ namespace Functional.Domain.Services
 {
     public class ProjetoService : Service<Projeto>, IProjetoService
     {
-        public ProjetoService(IProjetoRepository repository, IProjetoReadOnlyRepository readOnlyRepository) : base(repository, readOnlyRepository)
+        public ProjetoService(IProjetoRepository repository) : base(repository)
         {
-        }
-
-        public string ObtemUmNovoCodigo()
-        {
-            var quantidadeDeProjetosAtivos = Repository.All().ToList().Count;
-            return "PRJ" + (quantidadeDeProjetosAtivos + 1);
-        }
-
-        public override ValidationResult Create(Projeto entity)
-        {
-            entity.Codigo = ObtemUmNovoCodigo();
-            return base.Create(entity);
         }
     }
 }

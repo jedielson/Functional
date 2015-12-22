@@ -6,6 +6,8 @@ using Functional.Mvc.Controllers.Common;
 
 namespace Functional.Mvc.Controllers
 {
+    using Functional.Mvc.Helpers;
+
     public class ProjetoController : BaseController
     {
         private readonly IProjetoAppService _projetoAppService;
@@ -44,11 +46,11 @@ namespace Functional.Mvc.Controllers
                 AddModelErrors(result);
                 return PartialView(model);
             }
-
-            return RedirectToAction(nameof(Index));
+            
+            return this.DialogResult();
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
             var model = ProjetoViewModel.ToViewModel(_projetoAppService.Get(id));
             return PartialView(model);
@@ -70,7 +72,7 @@ namespace Functional.Mvc.Controllers
                 return PartialView(model);
             }
 
-            return RedirectToAction(nameof(Index));
+            return this.DialogResult();
         }
 
         public ActionResult Details(int id)
@@ -78,7 +80,7 @@ namespace Functional.Mvc.Controllers
             throw new NotImplementedException();
         }
 
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid modelId)
         {
             throw new NotImplementedException();
         }

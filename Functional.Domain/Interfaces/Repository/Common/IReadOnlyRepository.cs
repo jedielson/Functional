@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using Functional.Domain.Interfaces.Entities;
-
-namespace Functional.Domain.Interfaces.Repository.Common
+﻿namespace Functional.Domain.Interfaces.Repository.Common
 {
+    using System;
+    using System.Linq;
+    using System.Linq.Expressions;
+
     public interface IReadOnlyRepository<TEntity>
-        where TEntity : IEntityBase
+        where TEntity : class
     {
-        TEntity Get(int id);
-        IEnumerable<TEntity> All();
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        TEntity Get(Guid id);
+        IQueryable<TEntity> All();
+        IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
     }
 }

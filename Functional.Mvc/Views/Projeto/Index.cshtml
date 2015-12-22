@@ -8,7 +8,7 @@
 <h2>Projetos</h2>
 
 <p>
-    @Ajax.ModalDialogActionLink("Novo", "Create", "Projeto", "Novo", null, null)
+    @Ajax.ModalDialogActionLink("Novo", "Create", "Projeto", string.Empty, null, null, "modalPopUpNovoSuccess")
 </p>
 <table class="table">
     <tr>
@@ -32,14 +32,22 @@
             </td>
             <td>
                 @{
-                    var routeValues = new RouteValueDictionary();
-                    routeValues.Add("id", item.ProjetoId);
+                    var routeValuesEdit = new RouteValueDictionary { { "id", item.ProjetoId } };
                 }
-                @Ajax.ModalDialogActionLink("Editar", "Edit", "Projeto", "Editar", routeValues, null)
-                @Html.ActionLink("Edit", "Edit", new { id = item.ProjetoId }) |
-                @Html.ActionLink("Delete", "Delete", new{id = item.ProjetoId })                
+                @Ajax.ModalDialogActionLink(" ", "Edit", "Projeto", "Editar", routeValuesEdit, new Dictionary<string, object>() { { "class", "btn btn-primary glyphicon glyphicon-pencil" } }, "modalPopUpNovoSuccess")
+                @* ReSharper disable once UseStringInterpolation *@
+                @Ajax.DeleteConfirmation(" ", string.Format("Deseja deletar o projeto {0} - {1}", item.Codigo, item.Nome),
+                                                item.ProjetoId, 
+                                                "Delete", 
+                                                "Projeto", 
+                                                new Dictionary<string, object>() { { "class", "btn btn-danger glyphicon glyphicon-trash" }})
             </td>
         </tr>
-            }
+    }
 
 </table>
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/Controller/ProjetoScripts.js"></script>
+}

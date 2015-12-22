@@ -46,7 +46,7 @@
             DbSet.Remove(entity);
         }
 
-        public virtual TEntity Get(int id)
+        public virtual TEntity Get(Guid id)
         {
             return DbSet.Find(id);
         }

@@ -8,7 +8,6 @@
     using Config;
 
     using Functional.Domain.Entities.Model;
-    using Functional.Domain.Validation;
 
     using Mapping;
 
@@ -61,7 +60,8 @@
         /// <returns>Um <see cref="int"/></returns>
         public override int SaveChanges()
         {
-            foreach (var entry in this.ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("DataCadastro") != null))
+            var data = this.ChangeTracker.Entries();
+            foreach (var entry in data.Where(entry => entry.Entity.GetType().GetProperty("DataDeCriacao") != null))
             {
                 if (entry.State == EntityState.Added)
                 {
@@ -70,7 +70,7 @@
 
                 if (entry.State == EntityState.Modified)
                 {
-                    entry.Property("DataCadastro").IsModified = false;
+                    entry.Property("DataDeCriacao").IsModified = false;
                 }
 
                 entry.Property("DataUltimaAlteracao").CurrentValue = DateTime.Now;

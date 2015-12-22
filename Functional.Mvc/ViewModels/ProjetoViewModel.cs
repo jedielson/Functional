@@ -10,12 +10,16 @@ namespace Functional.Mvc.ViewModels
     public class ProjetoViewModel
     {
         [Key]
-        public virtual int ProjetoId { get; set; }
+        public virtual Guid ProjetoId { get; set; }
 
         [DisplayName("Código")]
+        [MaxLength(10, ErrorMessage = "O código não pode ter mais que 10 caracteres")]
+        [Required(ErrorMessage = "O código é obrigatório")]
         public virtual string Codigo { get; set; }
 
         [DisplayName("Nome")]
+        [Required(ErrorMessage = "O nome é obrigatório")]
+        [MaxLength(50, ErrorMessage = "O nome não pode ter mais que 50 caracteres")]
         public virtual string Nome { get; set; }
 
         [ScaffoldColumn(false)]

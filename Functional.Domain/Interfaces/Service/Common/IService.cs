@@ -6,14 +6,20 @@ using Functional.Domain.Interfaces.Validation;
 
 namespace Functional.Domain.Interfaces.Service.Common
 {
-    public interface IService<TEntity>
-        where TEntity : ISelfValidation
+    using System.Linq;
+
+    public interface IService<TEntity> where TEntity : class, ISelfValidation
     {
-        TEntity Get(int id, bool @readonly = false);
-        IEnumerable<TEntity> All(bool @readonly = false);
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, bool @readonly = false);
+        TEntity Get(Guid id, bool @readonly = false);
+
+        IQueryable<TEntity> All(bool @readonly = false);
+
+        IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, bool @readonly = false);
+
         ValidationResult Create(TEntity entity);
+
         ValidationResult Update(TEntity entity);
+
         ValidationResult Delete(TEntity entity);
     }
 }

@@ -1,29 +1,32 @@
-﻿using Functional.Application.Interfaces.Common;
-using Functional.Domain.Interfaces.Context.Common;
-using Functional.Domain.Validation;
-using Microsoft.Practices.ServiceLocation;
-
-namespace Functional.Application.Common
+﻿namespace Functional.Application.Common
 {
-    public abstract class AppServiceBase<TEntity> : ITransactionAppService where TEntity : class
+    using Functional.Application.Interfaces.Common;
+    using Functional.Data.Context.Interfaces;
+    using Functional.Domain.Validation;
+
+    using Microsoft.Practices.ServiceLocation;
+
+    public abstract class AppServiceBase<TContext> : ITransactionAppService<TContext>
+        where TContext : IDbContext, new()
     {
-        private IUnidadeDeTrabalho _uow;
-        protected ValidationResult ValidationResult { get; private  set; }
+        private IUnitOfWork<TContext> _uow;
 
         protected AppServiceBase()
         {
             ValidationResult = new ValidationResult();
         }
 
-        public void BeginTransaction()
+        protected ValidationResult ValidationResult { get; set; }
+
+        public virtual void BeginTransaction()
         {
-            _uow = ServiceLocator.Current.GetInstance<IUnidadeDeTrabalho>();
-            _uow.IniciarTransacao();
+            _uow = ServiceLocator.Current.GetInstance<IUnitOfWork<TContext>>();
+            _uow.BeginTransaction();
         }
 
-        public void Commit()
+        public virtual void Commit()
         {
-            _uow.ConfirmarTransacao();
+            _uow.SaveChanges();
         }
     }
 }

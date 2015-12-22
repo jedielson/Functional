@@ -5,6 +5,5 @@ namespace Functional.Domain.Interfaces.Service
 {
     public interface IProjetoService : IService<Projeto>
     {
-        string ObtemUmNovoCodigo();
     }
 }

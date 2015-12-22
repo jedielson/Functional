@@ -23,6 +23,7 @@ namespace Functional.CrossCutting.Ioc
         private static IKernel GetNinjectModules()
         {
             return new StandardKernel(new ServicesNinjectModule()
+                , new InfraestructureNinjectModule()
                 , new RepositoryNinjectModule()
                 , new ApplicationNinjectModule());
         }

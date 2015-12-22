@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Functional.Application</RootNamespace>
     <AssemblyName>Functional.Application</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -42,6 +51,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AppServiceBase.cs" />
+    <Compile Include="Exceptions\GenericAppServiceException.cs" />
     <Compile Include="Interfaces\Common\IAppService.cs" />
     <Compile Include="Interfaces\Common\ITransactionAppService.cs" />
     <Compile Include="Interfaces\Common\IWriteOnlyAppService.cs" />
@@ -59,6 +70,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Functional.Data.EntityFramework\Functional.Data.Context.csproj">
+      <Project>{33de45bd-ba45-4f67-a8e3-fed78b6187f6}</Project>
+      <Name>Functional.Data.Context</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Functional.Domain\Functional.Domain.csproj">
       <Project>{16C67AAD-A7FD-49B4-82BD-268613D7A13C}</Project>
       <Name>Functional.Domain</Name>

@@ -1,20 +1,31 @@
 ﻿@model Functional.Mvc.ViewModels.ProjetoViewModel
 
 
-@using (Html.BeginForm()) 
+@using (Ajax.BeginModalDialogForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">        
-        <hr />
-        @Html.ValidationSummary(true)
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome)
-                @Html.ValidationMessageFor(model => model.Nome)
+
+
+    <div class="form-horizontal">
+        <fieldset>
+            <legend>Novo</legend>
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Codigo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Codigo, new { @maxlength = "10", @style = "text-transform: uppercase;" })
+                    @Html.ValidationMessageFor(model => model.Codigo)
+                </div>
             </div>
-        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nome, htmlAttributes: new {@class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nome)
+                    @Html.ValidationMessageFor(model => model.Nome)
+                </div>
+            </div>
+        </fieldset>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -22,6 +33,7 @@
             </div>
         </div>
     </div>
+
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

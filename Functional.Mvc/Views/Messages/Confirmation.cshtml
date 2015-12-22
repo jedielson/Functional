@@ -1,0 +1,33 @@
+﻿@model Functional.Mvc.ViewModels.ConfirmationMessageViewModel
+
+
+@using (Html.BeginForm(Model.ActionDelete, Model.ControllerDelete))
+{
+
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.ModelId)
+        @Html.HiddenFor(model => model.ActionDelete)
+        @Html.HiddenFor(model => model.ControllerDelete)
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <label>@Model.Message</label>
+                <br />
+                <br />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Sim" class="btn btn-danger" />
+                <input type="button" value="Não" class="btn btn-default" onclick="$('.close').click()"/>
+            </div>
+        </div>
+
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

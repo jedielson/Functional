@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using Functional.Domain.Interfaces.Entities;
-
-namespace Functional.Domain.Interfaces.Repository.Common
+﻿namespace Functional.Domain.Interfaces.Repository.Common
 {
+    using System;
     using System.Linq;
+    using System.Linq.Expressions;
 
     public interface IRepository<TEntity>
       where TEntity : class
@@ -16,7 +13,7 @@ namespace Functional.Domain.Interfaces.Repository.Common
 
         void Delete(TEntity entity);
 
-        TEntity Get(int id);
+        TEntity Get(Guid id);
 
         IQueryable<TEntity> All(bool @readonly = false);
 

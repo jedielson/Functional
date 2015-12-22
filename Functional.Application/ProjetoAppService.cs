@@ -1,40 +1,95 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using Functional.Application.Common;
-using Functional.Application.Interfaces;
-using Functional.Domain.Entities.Model;
-using Functional.Domain.Validation;
-using Functional.Domain.Interfaces.Service;
-
-namespace Functional.Application
+﻿namespace Functional.Application
 {
-    public class ProjetoAppService : AppServiceBase<Projeto>, IProjetoAppService
+    using System;
+    using System.Linq;
+    using System.Linq.Expressions;
+
+    using Functional.Application.Common;
+    using Functional.Application.Interfaces;
+    using Functional.Data.Context;
+    using Functional.Domain.Entities.Model;
+    using Functional.Domain.Interfaces.Service;
+    using Functional.Domain.Validation;
+
+    /// <summary>
+    /// Fornece as operações básicas de leitura e escrita para um <see cref="Projeto"/>
+    /// </summary>
+    /// <seealso cref="Functional.Application.Common.AppServiceBase{FunctionalContext}" />
+    /// <seealso cref="Functional.Application.Interfaces.IProjetoAppService" />
+    public class ProjetoAppService : AppServiceBase<FunctionalContext>, IProjetoAppService
     {
         private readonly IProjetoService _projetoService;
 
-        public ProjetoAppService(IProjetoService service)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProjetoAppService"/> class.
+        /// </summary>
+        /// <param name="projetoService">The projeto service.</param>
+        public ProjetoAppService(IProjetoService projetoService)
         {
-            _projetoService = service;
-        }
-
-        public IEnumerable<Projeto> All(bool @readonly = false)
-        {
-            return _projetoService.All(@readonly);
+            this._projetoService = projetoService;
         }
 
         public ValidationResult Create(Projeto entity)
         {
-            BeginTransaction();
-
-            ValidationResult.Add(_projetoService.Create(entity));
-
-            if (ValidationResult.IsValid)
+            try
             {
-                Commit();
-            }
+                this.BeginTransaction();
+                this.ValidationResult = this._projetoService.Create(entity);
+                if (!this.ValidationResult.IsValid)
+                {
+                    return this.ValidationResult;
+                }
 
-            return ValidationResult;
+                this.Commit();
+                return this.ValidationResult;
+            }
+            catch (Exception ex)
+            {
+                this.ValidationResult.Add(new ValidationError(ex.Message));
+                return this.ValidationResult;
+            }
+        }
+
+        public ValidationResult Update(Projeto entity)
+        {
+            try
+            {
+                this.BeginTransaction();
+                this.ValidationResult = this._projetoService.Update(entity);
+                if (!this.ValidationResult.IsValid)
+                {
+                    return this.ValidationResult;
+                }
+
+                this.Commit();
+                return this.ValidationResult;
+            }
+            catch (Exception ex)
+            {
+                this.ValidationResult.Add(new ValidationError(ex.Message));
+                return this.ValidationResult;
+            }
+        }
+
+        public ValidationResult Remove(Projeto entity)
+        {
+            try
+            {
+                this.BeginTransaction();
+                this.ValidationResult = this._projetoService.Delete(entity);
+                if (!this.ValidationResult.IsValid)
+                {
+                    return this.ValidationResult;
+                }
+
+                this.Commit();
+                return this.ValidationResult;
+            }
+            catch (Exception ex)
+            {
+                this.ValidationResult.Add(new ValidationError(ex.Message));
+                return this.ValidationResult;
+            }
         }
 
         public void Dispose()
@@ -42,42 +97,19 @@ namespace Functional.Application
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<Projeto> Find(Expression<Func<Projeto, bool>> predicate, bool @readonly = false)
+        public Projeto Get(Guid id, bool @readonly = false)
         {
-            return _projetoService.Find(predicate, @readonly);
+            return this._projetoService.Get(id, @readonly);
         }
 
-        public Projeto Get(int id)
+        public IQueryable<Projeto> All(bool @readonly = false)
         {
-            return _projetoService.Get(id);
+            return this._projetoService.All(@readonly);
         }
 
-        public ValidationResult Remove(Projeto entity)
+        public IQueryable<Projeto> Find(Expression<Func<Projeto, bool>> predicate, bool @readonly = false)
         {
-            BeginTransaction();
-
-            ValidationResult.Add(_projetoService.Delete(entity));
-
-            if (ValidationResult.IsValid)
-            {
-                Commit();
-            }
-
-            return ValidationResult;
-        }
-
-        public ValidationResult Update(Projeto entity)
-        {
-            BeginTransaction();
-
-            ValidationResult.Add(_projetoService.Update(entity));
-
-            if (ValidationResult.IsValid)
-            {
-                Commit();
-            }
-
-            return ValidationResult;
+            return this._projetoService.Find(predicate, @readonly);
         }
     }
 }
