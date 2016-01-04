@@ -1,12 +1,14 @@
-﻿using System;
-using System.Web.Mvc;
-using Functional.Application.Interfaces;
-using Functional.Mvc.ViewModels;
-using Functional.Mvc.Controllers.Common;
-
-namespace Functional.Mvc.Controllers
+﻿namespace Functional.Mvc.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using Functional.Application.Interfaces;
+    using Functional.Mvc.Controllers.Common;
     using Functional.Mvc.Helpers;
+    using Functional.Mvc.ViewModels;
+    using Functional.Mvc.ViewModels.Enumerations;
 
     public class ProjetoController : BaseController
     {
@@ -46,8 +48,9 @@ namespace Functional.Mvc.Controllers
                 AddModelErrors(result);
                 return PartialView(model);
             }
-            
-            return this.DialogResult();
+
+            var data = ProjetoViewModel.ToViewModel(this._projetoAppService.All(true));
+            return this.HtmlDialogResult(string.Empty, nameof(this.Index), data);
         }
 
         public ActionResult Edit(Guid id)
@@ -72,7 +75,9 @@ namespace Functional.Mvc.Controllers
                 return PartialView(model);
             }
 
-            return this.DialogResult();
+            var data = this._projetoAppService.All(true);
+
+            return this.HtmlDialogResult(string.Empty, nameof(this.Index), data);
         }
 
         public ActionResult Details(int id)
@@ -83,6 +88,22 @@ namespace Functional.Mvc.Controllers
         public ActionResult Delete(Guid modelId)
         {
             throw new NotImplementedException();
+        }
+
+        public ActionResult MontaSelectProjeto(ViewModelEnumerations.TelaDropDownSelectProjeto? telaSelectProjeto)
+        {
+            var data = this._projetoAppService.All(true).Select(x => new ProjetoViewModel
+                                {
+                                    ProjetoId = x.ProjetoId,
+                                    Nome = x.Codigo + " - " + x.Nome
+                                });
+
+            var model = new SelectProjetoViewModel
+                            {
+                                Projetos = data,
+                                Tela = telaSelectProjeto
+                            };
+            return this.PartialView("SelectProjetos", model);
         }
     }
 }

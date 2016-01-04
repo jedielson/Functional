@@ -1,8 +1,9 @@
-﻿using Functional.Domain.Validation;
-using System.Web.Mvc;
-
-namespace Functional.Mvc.Controllers.Common
+﻿namespace Functional.Mvc.Controllers.Common
 {
+    using System.Web.Mvc;
+
+    using Functional.Domain.Validation;
+
     public class BaseController : Controller
     {
         protected void AddModelErrors(string error)
@@ -16,6 +17,6 @@ namespace Functional.Mvc.Controllers.Common
             {
                 AddModelErrors(item.Message);
             }
-        }        
+        }
     }
 }

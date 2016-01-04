@@ -103,11 +103,15 @@ function prepareBootstrapDialog(dialogDivId, title) {
     modalPopUp += '<h4 class="modal-title">' + title + '</h4>';
     modalPopUp += '</div>';
     modalPopUp += '<div class="modal-body"></div>';
+    modalPopUp += '<div class="modal-footer"></div>';
     modalPopUp += '</div></div>';
 
     div.append(modalPopUp);
     div = $('#' + dialogDivId).find('.modal-body');
     div.append(form);
+
+    var footer = $('.footer-content').detach();
+    $('.modal-footer').append(footer);
 }
 
 

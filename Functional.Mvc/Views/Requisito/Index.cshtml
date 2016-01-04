@@ -1,0 +1,26 @@
+﻿@using Functional.Mvc.ViewModels.Enumerations
+@model Functional.Mvc.ViewModels.RequisitosIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>Requisitos</h2>
+    </div>
+    <div class="col-md-4">
+        @{ Html.RenderAction("MontaSelectProjeto", "Projeto", new RouteValueDictionary() { { "TelaSelectProjeto", ViewModelEnumerations.TelaDropDownSelectProjeto.Requisitos } }); }
+    </div>
+</div>
+<div id="grid-requisitos">
+    
+</div>
+
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/Controller/RequisitoScripts.js"></script>
+    @Scripts.Render("~/Scripts/tree")
+}

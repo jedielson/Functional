@@ -1,0 +1,60 @@
+﻿@model Functional.Mvc.ViewModels.RequisitosIndexViewModel
+
+<div class="row">
+    <div class="col-md-8">
+        @Ajax.ModalDialogActionLink("Novo", "Create", "Requisito", "", new RouteValueDictionary() { { "projetoId", Model.ProjetoId } }, new Dictionary<string, object> { { "projetoId", Model.ProjetoId }, { "class", "btn btn-primary" }, { "id", "buttonNovo" } }, "carregaGridRequisitos")
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Código
+        </th>
+        <th>
+            Título
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Requisitos) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Ajax.ModalDialogActionLink(" ", "Edit", "Requisito", "Editar", new RouteValueDictionary
+                                                                                {
+                                                                                    {"id", item.RequisitoId }
+                                                                                },
+                                                                                new Dictionary<string, object>
+                                                                                    {
+                                                                                        { "class", "btn btn-primary glyphicon glyphicon-pencil" },
+                                                                                        { "title", "Editar" }
+                                                                                    },
+                                                                                "onCreateModalResult")
+            @* ReSharper disable once UseStringInterpolation *@
+            @Ajax.DeleteConfirmation(" ", string.Format("Deseja deletar o requisito {0} - {1}", item.Codigo, item.Titulo),
+                                                item.RequisitoId,
+                                                "Delete",
+                                                "Requisito",
+                                                new Dictionary<string, object>
+                                                    {
+                                                        { "class", "btn btn-danger glyphicon glyphicon-remove" },
+                                                        { "title", "Inativar" }
+                                                    },
+                                                "carregaGridRequisitos")
+        </td>
+    </tr>
+}
+
+</table>

@@ -61,6 +61,33 @@ namespace Functional.Domain.Entities.Validations.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O caso de uso deve possuir um código.
+        /// </summary>
+        public static string CasoDeUsoErroCasoDeUsoDevePossuirUmCodigo {
+            get {
+                return ResourceManager.GetString("CasoDeUsoErroCasoDeUsoDevePossuirUmCodigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O caso de uso deve possuir um fluxo principal válido.
+        /// </summary>
+        public static string CasoDeUsoErroCasoDeUsoDevePossuirUmFluxoPrincipalValido {
+            get {
+                return ResourceManager.GetString("CasoDeUsoErroCasoDeUsoDevePossuirUmFluxoPrincipalValido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O caso de uso deve possuir um título.
+        /// </summary>
+        public static string CasoDeUsoErroCasoDeUsoDevePossuirUmTitulo {
+            get {
+                return ResourceManager.GetString("CasoDeUsoErroCasoDeUsoDevePossuirUmTitulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O Código do Projeto está vazio, ou mal formatado.
         /// </summary>
         public static string ErroCodigoDeProjetoMalFormatado {
@@ -75,6 +102,51 @@ namespace Functional.Domain.Entities.Validations.Common {
         public static string ErroProjetoPrecisaTerUmNome {
             get {
                 return ResourceManager.GetString("ErroProjetoPrecisaTerUmNome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O fluxo deve possuir passos.
+        /// </summary>
+        public static string FluxoErroFluxoDevePossuirPassos {
+            get {
+                return ResourceManager.GetString("FluxoErroFluxoDevePossuirPassos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O fluxo deve possuir um título.
+        /// </summary>
+        public static string FluxoErroFluxoDevePossuirUmTitulo {
+            get {
+                return ResourceManager.GetString("FluxoErroFluxoDevePossuirUmTitulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O passo deve possuir uma descrição.
+        /// </summary>
+        public static string PassoErroPassoDevePossuirDescricao {
+            get {
+                return ResourceManager.GetString("PassoErroPassoDevePossuirDescricao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O passo deve possuir uma sequencia válida.
+        /// </summary>
+        public static string PassoErroPassoDevePossuirSequencia {
+            get {
+                return ResourceManager.GetString("PassoErroPassoDevePossuirSequencia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O requisito deve pertencer a um projeto valido.
+        /// </summary>
+        public static string RequisitoDevePertencerAUmProjetoValido {
+            get {
+                return ResourceManager.GetString("RequisitoDevePertencerAUmProjetoValido", resourceCulture);
             }
         }
     }

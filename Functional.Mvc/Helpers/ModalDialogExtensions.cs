@@ -7,7 +7,8 @@
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
     using System.Web.Routing;
-    using System.Web.Script.Serialization;
+
+    using Functional.Mvc.Helpers.ResultsExtensions;
 
     /// <summary>
     /// Cabeçalho teste
@@ -68,7 +69,7 @@
         /// <para></para>
         /// Este callback deve ser criado de forma a receber uma conjunto de dados no formato Json.
         /// Ex: function callback(data){}
-        /// Para informar quais dados devem ser submetidos, deve-se retornar um <see cref="DialogResult(System.Web.Mvc.Controller,string,object)"/>, 
+        /// Para informar quais dados devem ser submetidos, deve-se retornar um <see cref="ModalActionResult"/>, 
         /// endo o último parâmetro, um <see cref="object"/> que será serializado.
         /// Após a submissão do formulário, caso não seja especificado um callback, os dados serão descartados.
         /// </param>
@@ -119,18 +120,33 @@
         }
 
         /// <summary>
+        /// The begin modal dialog form.
+        /// </summary>
+        /// <param name="ajaxHelper">The ajax helper.</param>
+        /// <param name="action">A action para onde o form será submetido</param>
+        /// <param name="controller">O controller da action</param>
+        /// <returns>The <see cref="MvcForm"/>.</returns>
+        public static MvcForm BeginModalDialogForm(this AjaxHelper ajaxHelper, string action, string controller)
+        {
+            // ReSharper disable once Mvc.ActionNotResolved
+            return ajaxHelper.BeginForm(action, controller, new AjaxOptions { HttpMethod = "POST" });
+        }
+
+
+
+        /// <summary>
         /// Executa a action result de um Dialog
         /// </summary>
         /// <param name="controller">O controller atual</param>
         /// <param name="message">A mensagem para o usuário</param>
         /// <param name="jsonDialogResult">os dados a serem retornados</param>
         /// <returns>Um <see cref="ActionResult"/></returns>
-        public static ActionResult DialogResult(
+        public static ActionResult JsonDialogResult(
             this Controller controller,
             string message,
             object jsonDialogResult)
         {
-            return new DialogActionResult(message, jsonDialogResult);
+            return new JsonDialogActionResult(message, jsonDialogResult);
         }
 
         /// <summary>
@@ -138,9 +154,9 @@
         /// </summary>
         /// <param name="controller">The controller.</param>
         /// <returns>The <see cref="ActionResult"/>.</returns>
-        public static ActionResult DialogResult(this Controller controller)
+        public static ActionResult JsonDialogResult(this Controller controller)
         {
-            return DialogResult(controller, string.Empty, null);
+            return JsonDialogResult(controller, string.Empty, null);
         }
 
         /// <summary>
@@ -149,74 +165,47 @@
         /// <param name="controller">The controller.</param>
         /// <param name="message">The message.</param>
         /// <returns>The <see cref="ActionResult"/>.</returns>
-        public static ActionResult DialogResult(this Controller controller, string message)
+        public static ActionResult JsonDialogResult(this Controller controller, string message)
         {
-            return DialogResult(controller, message, null);
+            return JsonDialogResult(controller, message, null);
         }
 
         /// <summary>
-        /// Classe DialogActionResult
+        /// Executa a action result de um Dialog
         /// </summary>
-        internal sealed class DialogActionResult : ActionResult
+        /// <param name="controller">O controller atual</param>
+        /// <param name="message">A mensagem para o usuário</param>
+        /// <param name="viewName">O nome da View</param>
+        /// <param name="jsonDialogResult">os dados a serem retornados</param>
+        /// <returns>Um <see cref="ActionResult"/></returns>
+        public static ActionResult HtmlDialogResult(
+            this Controller controller,
+            string message,
+            string viewName,
+            object jsonDialogResult)
         {
-            /// <summary>
-            /// Inicializa um <see cref="DialogActionResult"/>
-            /// </summary>
-            /// <param name="message">Uma mensagem</param>
-            /// <param name="jsonDialogResult">Um resultado a ser serializado em Json</param>
-            public DialogActionResult(string message, object jsonDialogResult)
-            {
-                this.Json = jsonDialogResult;
-                this.Message = message ?? string.Empty;
-            }
+            return new HtmlDialogActionResult(message, viewName, jsonDialogResult);
+        }
 
-            /// <summary>
-            /// Inicializa um <see cref="DialogActionResult"/>
-            /// </summary>
-            /// <param name="message">Uma mensagem</param>
-            public DialogActionResult(string message)
-            {
-                this.Message = message ?? string.Empty;
-            }
+        /// <summary>
+        /// The dialog result.
+        /// </summary>
+        /// <param name="controller">The controller.</param>
+        /// <returns>The <see cref="ActionResult"/>.</returns>
+        public static ActionResult HtmlDialogResult(this Controller controller)
+        {
+            return HtmlDialogResult(controller, string.Empty, null, null);
+        }
 
-            /// <summary>
-            /// Gets or sets the message.
-            /// </summary>
-            public string Message { get; set; }
-
-            /// <summary>
-            /// Gets or sets the data.
-            /// </summary>
-            public object Json { get; set; }
-
-            /// <summary>
-            /// The execute result.
-            /// </summary>
-            /// <param name="context">
-            /// The context.
-            /// </param>
-            public override void ExecuteResult(ControllerContext context)
-            {
-                if (this.Json != null)
-                {
-                    this.SalvaDadosJson(context);
-                }
-
-                context.HttpContext.Response.Write(
-                    string.Format("<div data-dialog-close='true' data-dialog-result='{0}' />", this.Message));
-            }
-
-            /// <summary>
-            /// Escreve um input HIDDEN que armazena um objeto Json
-            /// </summary>
-            /// <param name="context">O HttpContext da chamada</param>
-            private void SalvaDadosJson(ControllerContext context)
-            {
-                string input = "<input ajax-callback-result type='hidden' value='{0}'/>";
-                var serializer = new JavaScriptSerializer();
-                input = string.Format(input, serializer.Serialize(this.Json));
-                context.HttpContext.Response.Write(input);
-            }
+        /// <summary>
+        /// The dialog result.
+        /// </summary>
+        /// <param name="controller">The controller.</param>
+        /// <param name="message">The message.</param>
+        /// <returns>The <see cref="ActionResult"/>.</returns>
+        public static ActionResult HtmlDialogResult(this Controller controller, string message)
+        {
+            return HtmlDialogResult(controller, message, null, null);
         }
     }
 }

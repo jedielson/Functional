@@ -51,12 +51,12 @@
             return DbSet.Find(id);
         }
 
-        public IQueryable<TEntity> All(bool @readonly = false)
+        public virtual IQueryable<TEntity> All(bool @readonly = false)
         {
             return @readonly ? DbSet.AsNoTracking() : DbSet;
         }
 
-        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, bool @readonly = false)
+        public virtual IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, bool @readonly = false)
         {
             return @readonly
                 ? DbSet.Where(predicate).AsNoTracking()

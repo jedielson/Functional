@@ -46,6 +46,10 @@
       <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -115,10 +119,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <Private>True</Private>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivatorEx">
       <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
@@ -135,7 +135,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -145,29 +144,48 @@
     <Compile Include="AutoMapper\AutoMapperConfig.cs" />
     <Compile Include="AutoMapper\DomainToViewModelMappingProfile.cs" />
     <Compile Include="AutoMapper\ViewModelToDomainMappingProfile.cs" />
+    <Compile Include="Controllers\CasoDeUsoController.cs" />
     <Compile Include="Controllers\Common\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\PassoController.cs" />
     <Compile Include="Controllers\ProjetoController.cs" />
+    <Compile Include="Controllers\RequisitoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ConfirmationExtensions.cs" />
     <Compile Include="Helpers\ModalDialogExtensions.cs" />
+    <Compile Include="Helpers\ResultsExtensions\ModalActionResult.cs" />
+    <Compile Include="Helpers\ResultsExtensions\HtmlDialogActionResult.cs" />
+    <Compile Include="Helpers\ResultsExtensions\JsonDialogActionResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CasoDeUsoIndexViewModel.cs" />
+    <Compile Include="ViewModels\CasoDeUsoViewModel.cs" />
     <Compile Include="ViewModels\ConfirmationMessageViewModel.cs" />
+    <Compile Include="ViewModels\Enumerations\ViewModelEnumerations.cs" />
+    <Compile Include="ViewModels\FluxoPrincipalViewModel.cs" />
+    <Compile Include="ViewModels\PassoViewModel.cs" />
     <Compile Include="ViewModels\ProjetoViewModel.cs" />
+    <Compile Include="ViewModels\RequisitosIndexViewModel.cs" />
+    <Compile Include="ViewModels\RequisitoViewModel.cs" />
+    <Compile Include="ViewModels\SelectProjetoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-tree.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
+    <Content Include="Content\chosen.css" />
+    <Content Include="Content\chosen.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -180,14 +198,23 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-tree.less" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\bootstrap-tree.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
+    <Content Include="Scripts\chosen.proto.js" />
+    <Content Include="Scripts\chosen.proto.min.js" />
+    <Content Include="Scripts\Controller\CasosDeUsoScripts.js" />
     <Content Include="Scripts\Controller\ProjetoScripts.js" />
+    <Content Include="Scripts\Controller\ProjetoSeletorScripts.js" />
+    <Content Include="Scripts\Controller\RequisitoScripts.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -200,6 +227,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modaldialog.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\prototype.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -222,6 +250,15 @@
     <Content Include="Views\Projeto\Edit.cshtml" />
     <Content Include="Views\Messages\Confirmation.cshtml" />
     <Content Include="Views\Messages\teste.cshtml" />
+    <Content Include="Views\Requisito\Index.cshtml" />
+    <Content Include="Views\Shared\SelectProjetos.cshtml" />
+    <Content Include="Views\Requisito\Grid.cshtml" />
+    <Content Include="Views\Requisito\Create.cshtml" />
+    <Content Include="Views\Requisito\Edit.cshtml" />
+    <Content Include="Views\CasoDeUso\Index.cshtml" />
+    <Content Include="Views\CasoDeUso\Create.cshtml" />
+    <Content Include="Views\Passo\Create.cshtml" />
+    <Content Include="Views\CasoDeUso\WorkArea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -231,6 +268,10 @@
     <ProjectReference Include="..\Functional.Application\Functional.Application.csproj">
       <Project>{fd3ec098-2c8b-4d11-aba3-d7daf48574b4}</Project>
       <Name>Functional.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Functional.CrossCutting.Util\Functional.CrossCutting.Util.csproj">
+      <Project>{a764ecf3-1ecb-4171-88b3-58ff5b1210dc}</Project>
+      <Name>Functional.CrossCutting.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\Functional.CrossCutting\Functional.CrossCutting.Ioc.csproj">
       <Project>{04422e53-e58e-48d3-b469-81e4537a9a93}</Project>

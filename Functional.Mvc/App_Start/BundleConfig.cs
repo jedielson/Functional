@@ -24,11 +24,25 @@ namespace Functional.Mvc
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/Functional").Include(
-                "~/Scripts/modaldialog.js"));
+                "~/Scripts/modaldialog.js",
+                "~/Scripts/Controller/ProjetoScripts.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));            
+                      "~/Content/site.css"));
+
+            // tree view
+            bundles.Add(new StyleBundle("~/Content/tree").Include(
+                "~/Content/bootstrap-tree.css"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/tree").Include(
+                    "~/Scripts/bootstrap-tree.js"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/chosen").Include(
+                    "~/Scripts/chosen.*"));
+
+            bundles.Add(new StyleBundle("~/Content/chosen").Include(
+                        "~/Content/chosen.css"));
         }
     }
 }

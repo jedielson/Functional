@@ -9,6 +9,8 @@ namespace Functional.CrossCutting.Ioc.Modules
         public override void Load()
         {
             Bind<IProjetoAppService>().To<ProjetoAppService>();
+            Bind<IRequisitoAppService>().To<RequisitoAppService>();
+            Bind<ICasoDeUsoAppService>().To<CasoDeUsoAppService>();
         }
     }
 }

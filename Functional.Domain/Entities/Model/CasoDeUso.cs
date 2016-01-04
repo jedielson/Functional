@@ -6,6 +6,8 @@ namespace Functional.Domain.Entities.Model
 {
     using System;
 
+    using Functional.Domain.Entities.Validations;
+
     public class CasoDeUso : IEntityBase
     {
         public Guid CasoDeUsoId { get; set; }
@@ -14,22 +16,26 @@ namespace Functional.Domain.Entities.Model
 
         public string Titulo { get; set; }
 
+        public string PreCondicoes { get; set; }
+
+        public string PosCondicoes { get; set; }
+
+        public string Descricao { get; set; }
+
         public ICollection<Requisito> Requisitos { get; set; }
 
         public FluxoPrincipal FluxoPrincipal { get; set; }
 
-        // public ICollection<FluxoAlternativo> FluxosAlternativos { get; set; }
-
-        ////public ICollection<FluxoDeExcessao> FluxosExcecao { get; set; }
-
-        public ValidationResult ValidationResult
-        {
-            get { throw new System.NotImplementedException(); }
-        }
+        public ValidationResult ValidationResult { get; private set; }
 
         public bool IsValid
         {
-            get { throw new System.NotImplementedException(); }
+            get
+            {
+                var validacao = new CasoDeUsoIsValidValidation();
+                this.ValidationResult = validacao.Valid(this);
+                return this.ValidationResult.IsValid;
+            }
         }
     }
 }

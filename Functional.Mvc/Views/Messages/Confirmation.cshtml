@@ -1,7 +1,7 @@
 ﻿@model Functional.Mvc.ViewModels.ConfirmationMessageViewModel
 
 
-@using (Html.BeginForm(Model.ActionDelete, Model.ControllerDelete))
+@using (Ajax.BeginModalDialogForm(Model.ActionDelete, Model.ControllerDelete))
 {
 
     <div class="form-horizontal">
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="footer-content">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Sim" class="btn btn-danger" />
                 <input type="button" value="Não" class="btn btn-default" onclick="$('.close').click()"/>

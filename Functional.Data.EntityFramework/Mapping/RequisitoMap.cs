@@ -11,6 +11,8 @@
             HasKey(r => r.RequisitoId);
             Property(r => r.RequisitoId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            Property(x => x.Descricao).HasMaxLength(500);
+
             HasRequired(r => r.Projeto)
                 .WithMany(x => x.Requisitos)
                 .HasForeignKey(r => r.ProjetoId);

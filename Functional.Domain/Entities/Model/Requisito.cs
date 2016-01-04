@@ -5,6 +5,8 @@ using Functional.Domain.Validation;
 
 namespace Functional.Domain.Entities.Model
 {
+    using Functional.Domain.Entities.Validations;
+
     public class Requisito : IEntityBase
     {
         public Guid RequisitoId { get; set; }
@@ -21,18 +23,23 @@ namespace Functional.Domain.Entities.Model
 
         public Guid ProjetoId { get; set; }
 
-        public Projeto Projeto { get; set; }
+        public virtual Projeto Projeto { get; set; }
 
-        public ICollection<CasoDeUso> CasosDeUso { get; set; }
+        public virtual ICollection<CasoDeUso> CasosDeUso { get; set; }
 
         public ValidationResult ValidationResult
         {
-            get { throw new NotImplementedException(); }
+            get; private set;
         }
 
         public bool IsValid
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var valid = new RequisitoIsValidValidation();
+                this.ValidationResult = valid.Valid(this);
+                return this.ValidationResult.IsValid;
+            }
         }
     }
 }

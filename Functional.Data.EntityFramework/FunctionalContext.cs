@@ -3,6 +3,7 @@
     using System;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
+    using System.Diagnostics;
     using System.Linq;
 
     using Config;
@@ -21,6 +22,7 @@
         public FunctionalContext()
             : base("ConnectionString")
         {
+            Database.Log = s => Debug.Write(s);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

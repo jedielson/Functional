@@ -12,6 +12,8 @@ namespace Functional.CrossCutting.Ioc.Modules
         {
             Bind(typeof (IService<>)).To(typeof (Service<>));
             Bind<IProjetoService>().To<ProjetoService>();
+            Bind<IRequisitoService>().To<RequisitoService>();
+            Bind<ICasoDeUsoService>().To<CasoDeUsoService>();
         }
     }
 }

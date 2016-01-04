@@ -60,12 +60,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CasoDeUsoAppService.cs" />
     <Compile Include="Common\AppServiceBase.cs" />
     <Compile Include="Exceptions\GenericAppServiceException.cs" />
     <Compile Include="Interfaces\Common\IAppService.cs" />
     <Compile Include="Interfaces\Common\ITransactionAppService.cs" />
     <Compile Include="Interfaces\Common\IWriteOnlyAppService.cs" />
+    <Compile Include="Interfaces\ICasoDeUsoAppService.cs" />
     <Compile Include="Interfaces\IProjetoAppService.cs" />
+    <Compile Include="Interfaces\IRequisitoAppService.cs" />
+    <Compile Include="RequisitoAppService.cs" />
     <Compile Include="ProjetoAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

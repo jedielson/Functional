@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Functional</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap-tree.css")
+    @Styles.Render("~/Content/chosen")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -17,11 +19,17 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Functional", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>            
+                @Html.ActionLink("Requisitos", "Index", "Requisito", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("Casos de Uso", "Index", "CasoDeUso", null, new { @class = "navbar-brand" })
+            </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
+        <hr />
+
+    </div>
+    <div class="container navbar navbar-fixed-bottom">
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Functional</p>
@@ -32,6 +40,8 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/Functional")
+    @Scripts.Render("~/Scripts/chosen")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript" src="~/Scripts/Controller/ProjetoSeletorScripts.js"></script>
 </body>
 </html>

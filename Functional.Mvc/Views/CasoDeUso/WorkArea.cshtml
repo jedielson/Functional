@@ -1,0 +1,24 @@
+﻿@using Functional.CrossCutting.Util
+@model Functional.Mvc.ViewModels.CasoDeUsoIndexViewModel
+
+
+<p>
+    @{
+        if (!Model.ProjetoId.IsEmpty())
+        {
+            @Ajax.ActionLink("Novo", "Create",
+                                new { ProjetoId = Model.ProjetoId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "GET",
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "caso-de-uso-area",
+                                    OnSuccess = "CasoDeUsoModule.LoadCreateFormCallback"
+                                }, 
+                                new { @class = "btn btn-primary" })
+        }
+    }
+</p>
+<div id="caso-de-uso-area">
+    
+</div>

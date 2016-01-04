@@ -4,13 +4,7 @@
         return;
     }
 
-    $.get('/Projeto/Index').done(function (data) {
-    
-        document.open();
-        document.write(data);
-        document.close();
-
-    }).fail(function () {
-    
-    });
+    document.open();
+    document.write(data);
+    document.close();
 }

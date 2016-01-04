@@ -8,7 +8,7 @@ namespace Functional.Domain.Entities.Specifications.ProjetoSpecs
     {
         public bool IsSatisfiedBy(Projeto entity)
         {
-            return entity.Codigo != null && !string.IsNullOrEmpty(entity.Codigo.Trim()) && entity.Codigo.Substring(0, 3) == "PRJ";
+            return !string.IsNullOrEmpty(entity.Codigo?.Trim());
         }
     }
 }

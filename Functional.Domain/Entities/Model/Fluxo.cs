@@ -10,6 +10,6 @@ namespace Functional.Domain.Entities.Model
 
         public string Titulo { get; set; }
 
-        public ICollection<Passo> Passos { get; set; }
+        public virtual ICollection<Passo> Passos { get; set; }
     }
 }

@@ -51,9 +51,20 @@
     <Compile Include="Entities\Model\Projeto.cs" />
     <Compile Include="Entities\Model\RegraDeNegocio.cs" />
     <Compile Include="Entities\Model\Requisito.cs" />
+    <Compile Include="Entities\Specifications\CasoDeUsoSpecs\CasoDeUsodevePossuirUmCodigoSpec.cs" />
+    <Compile Include="Entities\Specifications\CasoDeUsoSpecs\CasoDeUsodevePossuirUmTituloSpec.cs" />
+    <Compile Include="Entities\Specifications\FluxoSpecs\FluxoDevePossuirPassosSpec.cs" />
+    <Compile Include="Entities\Specifications\FluxoSpecs\FluxoDevePossuirUmTituloSpec.cs" />
+    <Compile Include="Entities\Specifications\PassoSpecs\PassoDevePossuirDescricaoSpec.cs" />
+    <Compile Include="Entities\Specifications\PassoSpecs\PassoDevePossuirSequenciaSpec.cs" />
     <Compile Include="Entities\Specifications\ProjetoSpecs\CodigoDoProjetoDeveSerFormatadoSpec.cs" />
     <Compile Include="Entities\Specifications\ProjetoSpecs\ProjetoDeveTerUmNomeSpec.cs" />
+    <Compile Include="Entities\Specifications\RequisitoSpecs\RequisitoDevePertencerAUmProjetoValido.cs" />
+    <Compile Include="Entities\Validations\CasoDeUsoIsValidValidation.cs" />
+    <Compile Include="Entities\Validations\FluxoIsValidValidation.cs" />
+    <Compile Include="Entities\Validations\PassoIsValidValidation.cs" />
     <Compile Include="Entities\Validations\ProjectIsValidValidation.cs" />
+    <Compile Include="Entities\Validations\RequisitoIsValidValidation.cs" />
     <Compile Include="Enumerations\Enumerations.cs" />
     <Compile Include="Interfaces\Context\Common\IUnidadeDeTrabalho.cs" />
     <Compile Include="Interfaces\Entities\IEntityBase.cs" />
@@ -75,7 +86,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\Service\ICasoDeUsoService.cs" />
     <Compile Include="Interfaces\Service\IProjetoService.cs" />
+    <Compile Include="Interfaces\Service\IRequisitoService.cs" />
+    <Compile Include="Services\CasoDeUsoService.cs" />
     <Compile Include="Services\Helpers\LinqExtentions.cs" />
     <Compile Include="Interfaces\Specification\ISpecification.cs" />
     <Compile Include="Interfaces\Validation\ISelfValidation.cs" />
@@ -84,6 +98,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Common\Service.cs" />
     <Compile Include="Services\ProjetoService.cs" />
+    <Compile Include="Services\RequisitoService.cs" />
     <Compile Include="Validation\Validation.cs" />
     <Compile Include="Validation\ValidationError.cs" />
     <Compile Include="Validation\ValidationResult.cs" />
@@ -101,6 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Functional.CrossCutting.Util\Functional.CrossCutting.Util.csproj">
+      <Project>{a764ecf3-1ecb-4171-88b3-58ff5b1210dc}</Project>
+      <Name>Functional.CrossCutting.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

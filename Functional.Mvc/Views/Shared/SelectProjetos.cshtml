@@ -1,0 +1,15 @@
+﻿@using Functional.CrossCutting.Util
+@model Functional.Mvc.ViewModels.SelectProjetoViewModel
+
+@{
+    @Html.Hidden("HiddenTelaSelectProjeto", Model.Tela)
+    if (Model.ProjetoId.IsEmpty())
+    {
+        @Html.DropDownList("DropDownListProjetos", new SelectList(Model.Projetos, "ProjetoId", "Nome"), "Selecione", new { @class = "form-control h2", @style = "float: right;" })
+    }
+    else
+    {
+        <p>Ronaldo</p>
+    }
+}
+
